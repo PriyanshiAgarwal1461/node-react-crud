@@ -27,10 +27,13 @@ function App() {
     }).then(() => {
       setItems(items.filter(item => item.id !== id));
     });
+    window.location.reload()
   };
   const handleChange = (id, value) => {
     setEditValues({ ...editValues, [id]: value });
   };
+
+  console.log("sss",editValues)
 
   const updateItem = (id) => {
     fetch(`http://localhost:3000/items/${id}`, {
@@ -48,6 +51,8 @@ function App() {
         );
         setItems(updated);
       });
+      window.location.reload()
+
   };
   useEffect(() => {
     fetch("http://localhost:3000/items")
@@ -60,12 +65,12 @@ function App() {
       {items.map(item => (
   <div key={item.id} >
     <span style={{marginRight:10, marginTop:10}}>{item.name}</span>
-    <button style={{marginRight:10, marginTop:10}} onClick={() => deleteItem(item.id)}>Delete</button>
+    <button style={{marginRight:10, marginTop:10}} onClick={() => deleteItem(item._id)}>Delete</button>
     <input style={{marginRight:10, marginTop:10}}
             placeholder="Enter new name"
-            onChange={(e) => handleChange(item.id, e.target.value)}
+            onChange={(e) => handleChange(item._id, e.target.value)}
           />
-            <button onClick={() => updateItem(item.id)}>
+            <button onClick={() => updateItem(item._id)}>
             Update
           </button>
   </div>
